@@ -380,7 +380,7 @@
         <div class="cell cell-markdown">
             <div class="cell-prompt prompt-empty">&nbsp;</div>
             <div class="cell-content">
-                <div class="markdown-cell"><h1>Breast Cancer Classification with Machine Learning</h1><br><br>This project builds an end-to-end machine learning pipeline to classify breast cancer diagnoses<br>as <strong>benign or malignant</strong> using the <strong>Wisconsin Breast Cancer Dataset</strong>.<br><br>The focus is not only on predictive performance but also on <strong>model evaluation under medical constraints</strong>, where false negatives (missed cancers) are significantly more costly than false positives.<br><br><!-- Key objectives:<br>- Build a robust preprocessing + modeling pipeline<br>- Compare multiple classification algorithms<br>- Optimize models using cross-validation and Bayesian optimization<br>- Evaluate performance using medically relevant metrics (ROC-AUC, recall)<br>- Analyze decision thresholds and probability calibration --></div>
+                <div class="markdown-cell"><h1>Breast Cancer Classification with Machine Learning</h1><br><br>This project builds an end-to-end machine learning pipeline to classify breast cancer diagnoses as <strong>benign or malignant</strong> using the <strong>Wisconsin Breast Cancer Dataset</strong>.<br><br>The focus is not only on predictive performance but also on <strong>model evaluation under medical constraints</strong>, where false negatives (missed cancers) are significantly more costly than false positives.<br><br><!-- Key objectives:<br>- Build a robust preprocessing + modeling pipeline<br>- Compare multiple classification algorithms<br>- Optimize models using cross-validation and Bayesian optimization<br>- Evaluate performance using medically relevant metrics (ROC-AUC, recall)<br>- Analyze decision thresholds and probability calibration --></div>
             </div>
         </div>
         <div class="cell cell-code">
@@ -440,18 +440,19 @@ CV_FOLDS = 5
             </div>
         </div>
         <div class="cell cell-code">
-            <div class="cell-prompt input-prompt">In [233]:</div>
+            <div class="cell-prompt input-prompt">In [ ]:</div>
             <div class="cell-content">
                 <div class="input-area"><pre># Load Breast Cancer data
 data = load_breast_cancer()
 X = pd.DataFrame(data.data, columns=data.feature_names)
-y = pd.Series(data.target, name="target")</pre></div>
+y = pd.Series(data.target, name="target")
+</pre></div>
             </div>
         </div>
         <div class="cell cell-markdown">
             <div class="cell-prompt prompt-empty">&nbsp;</div>
             <div class="cell-content">
-                <div class="markdown-cell">The dataset contains <strong>569 samples</strong> with <strong>30 numeric features</strong>, extracted from digitized images of breast tissue. The target variable is <strong>binary</strong>:<br>- 0 → Malignant<br>- 1 → Benign<br><br>Class distribution is moderately <strong>imbalanced (~63% benign / 37% malignant)</strong>, motivating<br>the use of <strong>stratified cross-validation</strong> and ROC-AUC–based evaluation.</div>
+                <div class="markdown-cell">The dataset contains <strong>569 samples</strong> with <strong>30 numeric features</strong>, extracted from digitized images of breast tissue. The target variable is <strong>binary</strong>:<br>- 0 → Malignant<br>- 1 → Benign<br><br>Class distribution is moderately <strong>imbalanced (~63% benign / 37% malignant)</strong>, motivating the use of <strong>stratified cross-validation</strong> and ROC-AUC–based evaluation.</div>
             </div>
         </div>
         <div class="cell cell-code">
@@ -512,7 +513,7 @@ plt.show()
         <div class="cell cell-markdown">
             <div class="cell-prompt prompt-empty">&nbsp;</div>
             <div class="cell-content">
-                <div class="markdown-cell">A <strong>stratified train/test</strong> split ensures class proportions remain consistent.<br>Model selection and tuning are performed <strong>only on the training set</strong><br>using stratified k-fold cross-validation to prevent data leakage.<br></div>
+                <div class="markdown-cell">A <strong>stratified train/test</strong> split ensures class proportions remain consistent.<br>Model selection and tuning are performed <strong>only on the training set</strong> using stratified k-fold cross-validation to prevent data leakage.<br></div>
             </div>
         </div>
         <div class="cell cell-code">
@@ -553,7 +554,7 @@ preprocessor = ColumnTransformer([
         <div class="cell cell-markdown">
             <div class="cell-prompt prompt-empty">&nbsp;</div>
             <div class="cell-content">
-                <div class="markdown-cell"><h3>Model Training and Evaluation</h3><br><br>We evaluate several models using stratified cross-validation:</div>
+                <div class="markdown-cell"><h3>Model Training and Evaluation</h3><br>We evaluate several models using stratified cross-validation:</div>
             </div>
         </div>
         <div class="cell cell-code">
@@ -649,7 +650,7 @@ pd.DataFrame(results, columns=["Model", "ROC-AUC", "Recall"]).sort_values("ROC-A
         <div class="cell cell-markdown">
             <div class="cell-prompt prompt-empty">&nbsp;</div>
             <div class="cell-content">
-                <div class="markdown-cell"><h3>Hyperparameter Optimization</h3><br><strong>Bayesian optimization</strong> via Optuna was used to tune the C parameter efficiently:</div>
+                <div class="markdown-cell"><h3>Hyperparameter Optimization</h3><br><strong>Bayesian optimization</strong> via <strong>Optuna</strong> was used to tune the C parameter efficiently:</div>
             </div>
         </div>
         <div class="cell cell-code">
@@ -775,12 +776,9 @@ Confusion Matrix: &lt;sklearn.metrics._plot.confusion_matrix.ConfusionMatrixDisp
             </div>
         </div>
         <div class="cell cell-code">
-            <div class="cell-prompt input-prompt">In [242]:</div>
+            <div class="cell-prompt input-prompt">In [ ]:</div>
             <div class="cell-content">
-                <div class="input-area"><pre>import matplotlib.pyplot as plt
-import pandas as pd
-
-# Extract coefficients and sort by absolute value
+                <div class="input-area"><pre># Extract coefficients and sort by absolute value
 coef = pd.Series(
     best_model.named_steps["clf"].coef_[0],
     index=X.columns
